@@ -10,7 +10,7 @@ latest, hasNew, err := versionchecker.CheckUpgrade()
 if err != nil {
     return
 }
-if !hasNew {
+if hasNew {
     fmt.Printf("latest:%s, current is new", latest)
 } else {
     fmt.Printf("latest:%s, current is not new", latest)
