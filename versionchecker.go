@@ -1,3 +1,5 @@
+//go:build !sonic
+
 package versionchecker
 
 import (
@@ -5,20 +7,10 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/bytedance/sonic"
 	"github.com/go-resty/resty/v2"
 )
 
 var clientPool sync.Pool
-
-func init() {
-	clientPool.New = func() any {
-		c := resty.New()
-		c.JSONMarshal = sonic.Marshal
-		c.JSONUnmarshal = sonic.Unmarshal
-		return c
-	}
-}
 
 func getClient() *resty.Client {
 	return clientPool.Get().(*resty.Client)
